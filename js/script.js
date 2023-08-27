@@ -1,3 +1,5 @@
+const myLibrary = [];
+
 function Book(title, author, pageCount, doneReading) {
   this.title = title;
   this.author = author;
@@ -13,3 +15,11 @@ const slaughterHouseFiveBook = new Book(
 );
 
 const duneBook = new Book("Dune", "Frank Herbert", 896, false);
+
+function addBookToLibrary(book) {
+  myLibrary.push(book);
+}
+
+function removeBookFromLibrary(index) {
+  myLibrary.splice(index, 1);
+}
