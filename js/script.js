@@ -37,17 +37,27 @@ BookCard.prototype.appendCardElement = function (CardChildElement) {
   this.bookCardElement.appendChild(CardChildElement);
 };
 
-BookCard.prototype.createReadButton = function (doneReading) {
-  const readingButton = document.createElement("button");
-  readingButton.classList.add("read-button");
-  if (doneReading) {
-    readingButton.textContent = "Read";
-    readingButton.classList.add("read");
+function changeReadButtonState() {
+  this.classList.toggle("read");
+  this.classList.toggle("not-read");
+  if (this.classList.contains("read")) {
+    this.textContent = "Read";
   } else {
-    readingButton.textContent = "Not Read";
-    readingButton.classList.add("not-read");
+    this.textContent = "Not Read";
   }
-  return readingButton;
+}
+BookCard.prototype.createReadButton = function (doneReading) {
+  const readButton = document.createElement("button");
+  readButton.classList.add("read-button");
+  if (doneReading) {
+    readButton.textContent = "Read";
+    readButton.classList.add("read");
+  } else {
+    readButton.textContent = "Not Read";
+    readButton.classList.add("not-read");
+  }
+  readButton.onclick = changeReadButtonState;
+  return readButton;
 };
 
 const bookCardContainer = document.getElementById("book-card-container");
