@@ -33,19 +33,20 @@ BookCard.prototype.createCardChildElement = function (bookKey, value, element) {
 };
 
 BookCard.prototype.appendCardElement = function (CardChildElement) {
-  BookCard.bookCardElement.appendChild(CardChildElement);
+  this.bookCardElement.appendChild(CardChildElement);
 };
 
-function createCardReadButton(doneReading) {
-  const cardDoneReading = document.createElement("button");
+BookCard.prototype.createReadButton = function (doneReading) {
+  const readingButton = document.createElement("button");
   if (doneReading) {
-    cardDoneReading.textContent = "Read";
-    cardDoneReading.classList.add("read");
+    readingButton.textContent = "Read";
+    readingButton.classList.add("read");
   } else {
-    cardDoneReading.textContent = "Not Read";
-    cardDoneReading.classList.add("not-read");
+    readingButton.textContent = "Not Read";
+    readingButton.classList.add("not-read");
   }
-}
+  return readingButton;
+};
 
 const bookCardContainer = document.getElementById("book-card-container");
 
@@ -58,7 +59,7 @@ Book.prototype.showBookCard = function () {
 
   for (const [key, value] of Object.entries(this)) {
     if (key == "doneReading") {
-      createCardReadButton(value);
+      bookCard.appendCardElement(bookCard.createReadButton(value));
       continue;
     }
     let element = "div";
@@ -68,7 +69,7 @@ Book.prototype.showBookCard = function () {
     bookCard.appendCardElement(
       bookCard.createCardChildElement(key, value, element)
     );
-    addCardToContainer(bookCard);
+    addCardToContainer(bookCard.bookCardElement);
   }
 };
 
