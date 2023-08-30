@@ -24,3 +24,77 @@ html {
   display: flex;
   gap: 2rem;
 }
+
+.grid-container {
+  display: grid;
+  gap: 2rem;
+  grid-template: 1fr /1fr 1fr 1fr 1fr;
+}
+
+.book-card {
+  display: flex;
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  gap: 1rem;
+  flex-direction: column;
+  margin: 2rem;
+  padding: 0.5rem;
+  border: solid 2px black;
+  border-radius: 20px;
+  background: linear-gradient(19deg, #21d4fd 0%, #b721ff 100%);
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.title,
+.author {
+  align-self: center;
+}
+
+.author {
+  font-size: 1.5rem;
+}
+
+.credentials {
+  align-self: end;
+}
+
+.pageCount {
+  align-self: end;
+  font-size: 1.2rem;
+}
+
+.pageCount::after {
+  content: " Pages";
+}
+
+.read-button {
+  color: white;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.7rem 1.4rem;
+  align-self: center;
+  border: solid 2px black;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 300ms;
+}
+
+.read-button:hover {
+  letter-spacing: 0.05rem;
+  scale: 1.1;
+  box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.75);
+}
+
+.read-button.read {
+  background: rgba(28, 197, 22, 0.918);
+}
+
+.read-button.not-read {
+  background: rgba(228, 54, 23, 0.911);
+}

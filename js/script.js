@@ -23,6 +23,7 @@ function Book(title, author, pageCount, doneReading) {
 function BookCard(book) {
   this.book = book;
   this.bookCardElement = document.createElement("div");
+  this.bookCardElement.classList.add("book-card");
 }
 
 BookCard.prototype.createCardChildElement = function (bookKey, value, element) {
@@ -38,6 +39,7 @@ BookCard.prototype.appendCardElement = function (CardChildElement) {
 
 BookCard.prototype.createReadButton = function (doneReading) {
   const readingButton = document.createElement("button");
+  readingButton.classList.add("read-button");
   if (doneReading) {
     readingButton.textContent = "Read";
     readingButton.classList.add("read");
@@ -80,9 +82,10 @@ const slaughterHouseFiveBook = new Book(
   false
 );
 
-const duneBook = new Book("Dune", "Frank Herbert", 896, false);
+const duneBook = new Book("Dune", "Frank Herbert", 896, true);
 
 addBookToLibrary(slaughterHouseFiveBook);
 addBookToLibrary(duneBook);
 
 duneBook.showBookCard();
+slaughterHouseFiveBook.showBookCard();
