@@ -1,19 +1,3 @@
-function BookLibrary() {
-  this.bookCollection = [];
-}
-
-BookLibrary.prototype.addBookToLibrary = function (book) {
-  this.bookCollection.push(book);
-};
-
-BookLibrary.prototype.removeBookFromLibrary = function (index) {
-  this.bookCollection.splice(index, 1);
-};
-
-BookLibrary.prototype.displayLibraryBooks = function () {
-  this.bookCollection.forEach((book) => book.showBookCard());
-};
-
 function Book(title, author, pageCount, doneReading) {
   this.title = title;
   this.author = author;
@@ -108,15 +92,6 @@ Book.prototype.showBookCard = function () {
   }
 };
 
-const slaughterHouseFiveBook = new Book(
-  "Slaughterhouse Five",
-  "Kurt Vonnegut",
-  288,
-  false
-);
-
-const duneBook = new Book("Dune", "Frank Herbert", 896, true);
-
 const addBookButton = document.getElementById("add-book-button");
 const newBookDialog = document.getElementById("new-book-dialog");
 const formTitle = document.getElementById("form-title");
@@ -129,7 +104,7 @@ addBookButton.addEventListener("click", () => {
   newBookDialog.showModal();
 });
 
-confirmButton.addEventListener("click", (e) => {
+confirmButton.addEventListener("click", () => {
   let formDoneReadingValue = false;
   if (formDoneReading.value === "on") formDoneReadingValue = true;
   const book = new Book(
@@ -138,12 +113,17 @@ confirmButton.addEventListener("click", (e) => {
     formPageCount.value,
     formDoneReadingValue
   );
-  bookLibrary.addBookToLibrary(book);
   book.showBookCard();
 });
 
-const bookLibrary = new BookLibrary();
+const slaughterHouseFiveBook = new Book(
+  "Slaughterhouse Five",
+  "Kurt Vonnegut",
+  288,
+  false
+);
 
-bookLibrary.addBookToLibrary(slaughterHouseFiveBook);
-bookLibrary.addBookToLibrary(duneBook);
-bookLibrary.displayLibraryBooks();
+const duneBook = new Book("Dune", "Frank Herbert", 896, true);
+
+slaughterHouseFiveBook.showBookCard();
+duneBook.showBookCard();
