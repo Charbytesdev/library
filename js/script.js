@@ -1,17 +1,18 @@
-const myLibrary = [];
-
-function addBookToLibrary(book) {
-  myLibrary.push(book);
+function BookLibrary() {
+  this.bookCollection = [];
 }
 
-function removeBookFromLibrary(index) {
-  myLibrary.splice(index, 1);
-}
+BookLibrary.prototype.addBookToLibrary = function (book) {
+  this.bookCollection.push(book);
+};
 
-function displayLibraryBooks() {
-  for (book in myLibrary) {
-  }
-}
+BookLibrary.prototype.removeBookFromLibrary = function (index) {
+  this.bookCollection.splice(index, 1);
+};
+
+BookLibrary.prototype.displayLibraryBooks = function () {
+  this.bookCollection.forEach((book) => book.showBookCard());
+};
 
 function Book(title, author, pageCount, doneReading) {
   this.title = title;
@@ -94,8 +95,8 @@ const slaughterHouseFiveBook = new Book(
 
 const duneBook = new Book("Dune", "Frank Herbert", 896, true);
 
-addBookToLibrary(slaughterHouseFiveBook);
-addBookToLibrary(duneBook);
+bookLibrary = new BookLibrary();
 
-duneBook.showBookCard();
-slaughterHouseFiveBook.showBookCard();
+bookLibrary.addBookToLibrary(slaughterHouseFiveBook);
+bookLibrary.addBookToLibrary(duneBook);
+bookLibrary.displayLibraryBooks();
