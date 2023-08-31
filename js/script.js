@@ -100,3 +100,28 @@ bookLibrary = new BookLibrary();
 bookLibrary.addBookToLibrary(slaughterHouseFiveBook);
 bookLibrary.addBookToLibrary(duneBook);
 bookLibrary.displayLibraryBooks();
+
+const addBookButton = document.getElementById("add-book-button");
+const newBookDialog = document.getElementById("new-book-dialog");
+const formTitle = document.getElementById("form-title");
+const formAuthor = document.getElementById("form-author");
+const formPageCount = document.getElementById("form-page-count");
+const formDoneReading = document.getElementById("form-done-reading");
+const confirmButton = document.getElementById("confirm-button");
+
+addBookButton.addEventListener("click", () => {
+  newBookDialog.showModal();
+});
+
+confirmButton.addEventListener("click", (e) => {
+  let formDoneReadingValue = false;
+  if (formDoneReading.value === "on") formDoneReadingValue = true;
+  book = new Book(
+    formTitle.value,
+    formAuthor.value,
+    formPageCount.value,
+    formDoneReadingValue
+  );
+  bookLibrary.addBookToLibrary(book);
+  book.showBookCard();
+});
