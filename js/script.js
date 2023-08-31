@@ -38,6 +38,14 @@ BookCard.prototype.appendCardElement = function (CardChildElement) {
   this.bookCardElement.appendChild(CardChildElement);
 };
 
+BookCard.prototype.appendCardButtons = function (readValue) {
+  const buttonsContainer = document.createElement("div");
+  buttonsContainer.classList.add("buttons-container");
+  buttonsContainer.appendChild(this.createReadButton(readValue));
+  buttonsContainer.appendChild(this.createDeleteButton());
+  this.appendCardElement(buttonsContainer);
+};
+
 function changeReadButtonState() {
   this.classList.toggle("read");
   this.classList.toggle("not-read");
@@ -47,6 +55,11 @@ function changeReadButtonState() {
     this.textContent = "Not Read";
   }
 }
+
+BookCard.prototype.removeBook = function () {
+  this.bookCardElement.parentElement.removeChild(this.bookCardElement);
+};
+
 BookCard.prototype.createReadButton = function (doneReading) {
   const readButton = document.createElement("button");
   readButton.classList.add("read-button");
@@ -61,6 +74,14 @@ BookCard.prototype.createReadButton = function (doneReading) {
   return readButton;
 };
 
+BookCard.prototype.createDeleteButton = function () {
+  const deleteButton = document.createElement("button");
+  deleteButton.classList.add("delete-button");
+  deleteButton.textContent = "Delete";
+  deleteButton.addEventListener("click", () => this.removeBook());
+  return deleteButton;
+};
+
 const bookCardContainer = document.getElementById("book-card-container");
 
 function addCardToContainer(card) {
@@ -71,12 +92,13 @@ Book.prototype.showBookCard = function () {
   const bookCard = new BookCard(this);
 
   for (const [key, value] of Object.entries(this)) {
-    if (key == "doneReading") {
-      bookCard.appendCardElement(bookCard.createReadButton(value));
+    if (key === Object.keys(this).pop()) {
+      bookCard.appendCardButtons(value);
       continue;
     }
+
     let element = "div";
-    if (key == "title" || key == "author") {
+    if (key === "title" || key === "author") {
       element = "h2";
     }
     bookCard.appendCardElement(
@@ -95,12 +117,6 @@ const slaughterHouseFiveBook = new Book(
 
 const duneBook = new Book("Dune", "Frank Herbert", 896, true);
 
-bookLibrary = new BookLibrary();
-
-bookLibrary.addBookToLibrary(slaughterHouseFiveBook);
-bookLibrary.addBookToLibrary(duneBook);
-bookLibrary.displayLibraryBooks();
-
 const addBookButton = document.getElementById("add-book-button");
 const newBookDialog = document.getElementById("new-book-dialog");
 const formTitle = document.getElementById("form-title");
@@ -116,7 +132,7 @@ addBookButton.addEventListener("click", () => {
 confirmButton.addEventListener("click", (e) => {
   let formDoneReadingValue = false;
   if (formDoneReading.value === "on") formDoneReadingValue = true;
-  book = new Book(
+  const book = new Book(
     formTitle.value,
     formAuthor.value,
     formPageCount.value,
@@ -125,3 +141,9 @@ confirmButton.addEventListener("click", (e) => {
   bookLibrary.addBookToLibrary(book);
   book.showBookCard();
 });
+
+const bookLibrary = new BookLibrary();
+
+bookLibrary.addBookToLibrary(slaughterHouseFiveBook);
+bookLibrary.addBookToLibrary(duneBook);
+bookLibrary.displayLibraryBooks();
